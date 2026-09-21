@@ -1,7 +1,8 @@
-import { StyleSheet } from "react-native";
+import { Alert, Button, Image, Pressable, StyleSheet } from "react-native";
 
 import { Text, View } from "@/components/Themed";
 import { SymbolView } from "expo-symbols";
+import React from "react";
 
 export default function TabOneScreen() {
   const statistics = [
@@ -17,6 +18,17 @@ export default function TabOneScreen() {
       label: "Admins",
       value: 1,
     },
+  ];
+  const images = [
+    "https://placehold.net/default.png",
+    "https://placehold.net/default.png",
+    "https://placehold.net/default.png",
+    "https://placehold.net/default.png",
+    "https://placehold.net/default.png",
+    "https://placehold.net/default.png",
+    "https://placehold.net/default.png",
+    "https://placehold.net/default.png",
+    "https://placehold.net/default.png",
   ];
   return (
     <View style={styles.container}>
@@ -61,6 +73,20 @@ export default function TabOneScreen() {
           ))}
         </View>
       </View>
+      <View style={styles.desc}>
+        <Text style={{ fontWeight: "bold" }}>OOTD Everyday</Text>
+        <Text>Fit check!</Text>
+        <Text>You know we'll hype you up.</Text>
+      </View>
+      <Pressable style={styles.member}>
+        <Text>Member</Text>
+      </Pressable>
+      <View style={styles.images}>
+        {images.map((img, index) => (
+          <Image key={index} source={{ uri: img }} style={styles.image} />
+        ))}
+      </View>
+      <Button title="Alert" onPress={() => Alert.alert("Alert Button pressed!")} />
     </View>
   );
 }
@@ -85,6 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     height: "100%",
+    overflowY: "scroll",
   },
   avater: {
     flex: 1,
@@ -123,5 +150,34 @@ const styles = StyleSheet.create({
   statisticsLabel: {
     fontSize: 14,
     opacity: 0.8,
+  },
+  desc: {
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: "100%",
+    padding: 10,
+  },
+  member: {
+    width: "90%",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10,
+    padding: 5,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
+  },
+  images: {
+    gap:1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    marginBottom: 20,
+  },
+  image: {
+    width: '32%',
+    aspectRatio: 1,
   },
 });
