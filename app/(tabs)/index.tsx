@@ -1,4 +1,4 @@
-import { Alert, Button, Image, Pressable, StyleSheet } from "react-native";
+import { Alert, Image, Pressable, StyleSheet } from "react-native";
 
 import { Text, View } from "@/components/Themed";
 import { SymbolView } from "expo-symbols";
@@ -86,7 +86,14 @@ export default function TabOneScreen() {
           <Image key={index} source={{ uri: img }} style={styles.image} />
         ))}
       </View>
-      <Button title="Alert" onPress={() => Alert.alert("Alert Button pressed!")} />
+      <Pressable
+        onPress={() => Alert.alert("Alert Button pressed!")}
+        accessibilityRole="button"
+        accessibilityLabel="Alert"
+        style={{ padding: 5, backgroundColor: "blue", borderRadius: 5 }}
+      >
+        <Text style={{ color: "white" }}>Alert</Text>
+      </Pressable>
     </View>
   );
 }
@@ -168,7 +175,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   images: {
-    gap:1,
+    gap: 1,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -177,7 +184,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   image: {
-    width: '32%',
+    width: "32%",
     aspectRatio: 1,
   },
 });
