@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   iconText: {
     fontSize: 14,
@@ -159,6 +158,8 @@ const styles = StyleSheet.create({
     color: '#f2f3f5',
     fontSize: 22,
     fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    color: '#dcddde',
   },
   pronouns: {
     color: '#949ba4',
