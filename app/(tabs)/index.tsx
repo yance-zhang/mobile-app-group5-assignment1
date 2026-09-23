@@ -1,7 +1,10 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useState } from 'react';
+import { Image, Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function DiscordProfileScreen() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  
   return (
     <SafeAreaProvider>
     <SafeAreaView style={styles.container}>
@@ -41,8 +44,8 @@ export default function DiscordProfileScreen() {
           <Text style={styles.pronouns}>• He/Him</Text>
         </View>
 
-        <TouchableOpacity style={styles.editProfileBtn}>
-          <Text style={styles.editProfileBtnText}>✏️ Edit Profile</Text>
+        <TouchableOpacity style={styles.editButton}>
+          <Text style={styles.editButtonText}>✏️ Edit Profile</Text>
         </TouchableOpacity>
 
 
@@ -57,13 +60,67 @@ export default function DiscordProfileScreen() {
 
         <View style={styles.card}>
           <Text style={styles.cardHeader}>Connections</Text>
-          {/* this part is for connection! og screenshot got reddit and X */}
+
+          <View style={styles.connectionRow}>
+            <Text style={styles.connectionIconContainer}>👤</Text>
+            <View style={styles.connectionTextContainer}>
+              <Text style={styles.connectionTitle}>UpstairsSuperb9527</Text>
+              <Text style={styles.connectionSub}>Member since May 23, 2024</Text>
+              <Text style={styles.connectionText}>113,713 Karma</Text>
+            </View>
+            <Text style={styles.arrowText}>🡭</Text>
+          </View>
+
+          <View style={styles.connectionRow}>
+            <Text style={styles.connectionIconContainer}>👤</Text>
+            <View style={styles.connectionTextContainer}>
+              <Text style={styles.connectionTitle}>Azwann_shah</Text>
+              <Text style={styles.connectionSub}>Member since May 28, 2024</Text>
+              <Text style={styles.connectionText}>41 Posts  1 Followers</Text>
+            </View>
+            <Text style={styles.arrowText}>🡭</Text>
+          </View>
+
+          <View style={styles.connectionRow}>
+            <Text style={styles.connectionIconContainer}>👤</Text>
+            <View style={styles.connectionTextContainer}>
+              <Text style={styles.connectionTitle}>UpstairsSuperB</Text>
+            </View>
+            <Text style={styles.arrowText}>🡭</Text>
+          </View>
         </View>
 
         <TouchableOpacity style={styles.cardRow}>
           <Text style={styles.cardHeaderText}>Your Friends</Text>
           <Text style={styles.arrowText}>›</Text>
         </TouchableOpacity>
+
+        <Pressable
+          onPress={() => setIsModalVisible(true)}
+          style={styles.smallAlertButton}
+        >
+          <Text style={styles.smallAlertText}>Alert</Text>
+        </Pressable>
+
+        <Modal
+          transparent
+          visible={isModalVisible}
+          animationType="fade"
+          onRequestClose={() => setIsModalVisible(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalCard}>
+              <Text style={styles.modalTitle}>Alert Button Pressed</Text>
+
+              <Pressable
+                onPress={() => setIsModalVisible(false)}
+                style={styles.exitButton}
+              >
+                <Text style={styles.exitText}>OK</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
     </SafeAreaProvider>
@@ -155,7 +212,6 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   username: {
-    color: '#f2f3f5',
     fontSize: 22,
     fontWeight: 'bold',
     alignSelf: 'flex-start',
@@ -166,7 +222,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginTop: 2,
   },
-  editProfileBtn: {
+  editButton: {
     backgroundColor: '#5865f2',
     marginHorizontal: 16,
     marginTop: 16,
@@ -174,7 +230,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
   },
-  editProfileBtnText: {
+  editButtonText: {
     color: '#ffffff',
     fontWeight: 'bold',
     fontSize: 14,
@@ -202,12 +258,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 12,
+    width: '100%',
   },
   connectionIconContainer: {
     marginRight: 12,
+    fontSize: 18,
   },
   connectionTextContainer: {
     flex: 1,
+    justifyContent: 'center',
   },
   connectionTitle: {
     color: '#f2f3f5',
@@ -219,6 +278,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 2,
   },
+  connectionText: {
+    color: '#dbdee1',
+    fontSize: 12,
+    lineHeight: 20,
+  },
   modBadge: {
     backgroundColor: '#35363c',
     color: '#949ba4',
@@ -227,6 +291,7 @@ const styles = StyleSheet.create({
   arrowText: {
     color: '#949ba4',
     fontSize: 18,
+    marginLeft: 12,
   },
   cardRow: {
     backgroundColor: '#2b2d31',
@@ -242,5 +307,47 @@ const styles = StyleSheet.create({
     color: '#f2f3f5',
     fontSize: 14,
     fontWeight: '600',
-  }
+  },
+  smallAlertButton: {
+    backgroundColor: '#5865f2',
+    marginTop: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 26,
+    borderRadius: 12,
+    alignSelf: 'center',
+  },
+  smallAlertText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalCard: {
+    width: 260,
+    backgroundColor: '#2b2d31',
+    borderRadius: 16,
+    padding: 20,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    color: '#ffffff',
+    fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 20,
+  },
+  exitButton: {
+    backgroundColor: '#5865f2',
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    borderRadius: 10,
+  },
+  exitText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
 });
